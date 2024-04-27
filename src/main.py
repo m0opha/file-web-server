@@ -38,9 +38,9 @@ def upload_file():
 
 @app.route('/download/<filename>')
 def download_file(filename):
-    print(app.config['UPLOAD_FOLDER'])
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
+    # Suponiendo que los archivos están en una carpeta llamada "archivos"
+    file_path = f"{app.config['UPLOAD_FOLDER']}/{filename}"
+    return send_file(file_path, as_attachment=True)
 
 @app.route('/delete/<filename>', methods=['POST'])
 def delete_file(filename):
