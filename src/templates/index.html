@@ -20,7 +20,7 @@
             flex-direction: column;
             gap: 20px;
             width: 100%;
-            max-width: 600px; /* Limitar el ancho máximo de las tarjetas */
+            max-width: 600px;
             padding: 20px;
         }
 
@@ -39,7 +39,7 @@
 
         form {
             text-align: center;
-            margin-bottom: 20px; /* Espacio entre la tarjeta de carga y la de archivos cargados */
+            margin-bottom: 20px;
         }
 
         ul {
@@ -63,6 +63,10 @@
             display: flex;
             gap: 10px;
         }
+
+        .actions form {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -83,20 +87,16 @@
             <ul>
                 {% for file in files %}
                     <li>
-                        <a href="{{ url_for('download_file', filename=file) }}">{{ file }}</a>
+                        <a href="{{ url_for('files_routes.download_file', filename=file) }}">{{ file }}</a>
                         
-                        <div class="actions">            
-                            <form action="{{ url_for('delete_file', filename=file) }}" method="post">
+                        <div class="actions">
+                            <form action="{{ url_for('files_routes.download_file', filename=file) }}" method="get">
+                                <button type="submit">Download</button>
+                            </form>
+                            <form action="{{ url_for('files_routes.delete_file', filename=file) }}" method="post">
                                 <button type="submit">Delete</button>
                             </form>
                         </div>
-
-                        <div class="actions">            
-                            <form action="{{ url_for('download_file', filename=file) }}" method="get">
-                                <button type="submit">Download</button>
-                            </form>
-                        </div>
-
                     </li>
                 {% endfor %}
             </ul>
